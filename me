@@ -1,1 +1,32 @@
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+
+# 读入图像
+img = cv2.imread('image.jpg', 0)
+
+# 计算图像直方图
+hist, bins = np.histogram(img.flatten(), 256, [0, 256])
+
+# 绘制原始图像直方图
+plt.hist(img.flatten(), 256, [0, 256], color='r')
+plt.xlim([0, 256])
+plt.show()
+
+# 对图像进行直方图均衡化
+equ = cv2.equalizeHist(img)
+
+# 计算均衡化后的图像直方图
+hist_equ, bins_equ = np.histogram(equ.flatten(), 256, [0, 256])
+
+# 绘制均衡化后的图像直方图
+plt.hist(equ.flatten(), 256, [0, 256], color='r')
+plt.xlim([0, 256])
+plt.show()
+
+# 显示原始图像和均衡化后的图像
+cv2.imshow('Original Image', img)
+cv2.imshow('Equalized Image', equ)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
 
