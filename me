@@ -153,3 +153,57 @@ cv2.imshow('result', dst)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
 
+
+
+
+
+
+
+
+
+import cv2
+
+# 读入图像并将其转换为灰度图像
+img = cv2.imread('image.jpg', 0)
+
+# 对图像进行阈值化处理
+ret, thresh = cv2.threshold(img, 127, 255, cv2.THRESH_BINARY)
+
+# 提取二值图像的轮廓
+contours, hierarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+
+# 在原图像上绘制轮廓
+img_contours = cv2.drawContours(img, contours, -1, (0, 0, 255), 2)
+
+# 显示原始图像和提取轮廓后的图像
+cv2.imshow('Original Image', img)
+cv2.imshow('Contour Image', img_contours)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+
+
+
+
+
+
+
+
+import cv2
+
+# 读入图像
+img = cv2.imread('image.jpg')
+
+# 高斯模糊处理
+img_gaussian = cv2.GaussianBlur(img, (5, 5), 0)
+
+# 双边滤波处理
+img_bilateral = cv2.bilateralFilter(img, 9, 75, 75)
+
+# 显示原始图像和处理后的图像
+cv2.imshow('Original Image', img)
+cv2.imshow('Gaussian Blur Image', img_gaussian)
+cv2.imshow('Bilateral Filter Image', img_bilateral)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
