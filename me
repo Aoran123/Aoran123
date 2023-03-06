@@ -32,3 +32,119 @@ cv2.destroyAllWindows()
 
 使用OpenCV完成对图像的几何变换处理(平移、尺度变化
 旋转，仿射变换、透视变换等)
+import cv2
+import numpy as np
+
+img = cv2.imread('image.jpg')
+rows, cols = img.shape[:2]
+
+# 定义平移矩阵
+M = np.float32([[1, 0, 100], [0, 1, 50]])
+
+# 应用平移矩阵
+dst = cv2.warpAffine(img, M, (cols, rows))
+
+# 显示结果
+cv2.imshow('image', img)
+cv2.imshow('result', dst)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+
+
+
+import cv2
+import numpy as np
+
+img = cv2.imread('image.jpg')
+
+# 定义缩放因子
+fx = 0.5
+fy = 0.5
+
+# 应用缩放变换
+dst = cv2.resize(img, None, fx=fx, fy=fy, interpolation=cv2.INTER_LINEAR)
+
+# 显示结果
+cv2.imshow('image', img)
+cv2.imshow('result', dst)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+
+
+
+
+import cv2
+import numpy as np
+
+img = cv2.imread('image.jpg')
+rows, cols = img.shape[:2]
+
+# 定义旋转矩阵
+angle = 45
+M = cv2.getRotationMatrix2D((cols/2, rows/2), angle, 1)
+
+# 应用旋转矩阵
+dst = cv2.warpAffine(img, M, (cols, rows))
+
+# 显示结果
+cv2.imshow('image', img)
+cv2.imshow('result', dst)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+
+
+
+import cv2
+import numpy as np
+
+img = cv2.imread('image.jpg')
+rows, cols = img.shape[:2]
+
+# 定义仿射变换矩阵
+pts1 = np.float32([[50, 50], [200, 
+pts2 = np.float32([[10, 100], [200, 50]])
+M = cv2.getAffineTransform(pts1, pts2)
+dst = cv2.warpAffine(img, M, (cols, rows))
+cv2.imshow('image', img)
+cv2.imshow('result', dst)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+
+
+
+
+
+
+## 透视变换
+
+透视变换可以使用OpenCV中的cv2.getPerspectiveTransform()和cv2.warpPerspective()函数实现。首先需要定义透视变换矩阵，然后使用cv2.warpPerspective()函数应用透视变换矩阵。
+
+```python
+import cv2
+import numpy as np
+
+img = cv2.imread('image.jpg')
+rows, cols = img.shape[:2]
+
+# 定义透视变换前的四个点
+pts1 = np.float32([[56, 65], [368, 52], [28, 387], [389, 390]])
+
+# 定义透视变换后的四个点
+pts2 = np.float32([[0, 0], [300, 0], [0, 300], [300, 300]])
+
+# 计算透视变换矩阵
+M = cv2.getPerspectiveTransform(pts1, pts2)
+
+# 应用透视变换矩阵
+dst = cv2.warpPerspective(img, M, (300, 300))
+
+# 显示结果
+cv2.imshow('image', img)
+cv2.imshow('result', dst)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
