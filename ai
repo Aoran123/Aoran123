@@ -1,1 +1,44 @@
-C4.5算法是一种经典的决策树算法，被广泛应用于数据挖掘、机器学习等领域。该算法由Ross Quinlan在1993年提出，是ID3算法的改进版，能够处理连续属性和缺失数据，并且具有更好的泛化能力。本文从C4.5算法的核心思想、信息增益比的计算方法、剪枝技术以及对连续属性和缺失数据的处理等方面进行了介绍。此外，本文也提到了C4.5算法存在的一些问题，例如对于类别较多的数据集容易出现过度拟合问题。为了解决这些问题，C5.0算法和CART算法等改进算法也被提出。总之，C4.5算法是一种值得学习的决策树算法，具有较好的泛化能力和处理连续属性、缺失数据的能力。
+import sys
+import cv2
+import humpy as np
+import matplotlib:RXplotasplt
+img_path = r'C: \AI\segment-anything-main\demo_im\cat.jpg
+model_path = r"C: \AI\segment-anything-main\checkpoint\sam_vit_h_4b8939.pth"
+out_path = r'C:\AI\segment-anything-main\predicate_mask
+prompots
+=
+"cat"
+out name
+=
+"out. jpg"
+img = cv2.imread (img_path)
+＃加载模型
+from segment _anything import sam _model _registry
+sam = sam model _registry["vit h"] (checkpoint-model path)
+＃ #这是有提示词的预测
+# from segment_anything import build_sam, Sampredictor
+# predictor = Sampredictor(build_ sam(checkpoint=mode1_path)）
+# predictor.set_image (img)
+# masks,
+= predictor.predict (prompots)
+#这是没有提示词的全图预测
+from segment _anything import build_sam, SamAutomaticMaskGenerator
+mask _generator = SamAutomaticMaskGenerator (build_ sam(checkpoint-model_path))
+masks = mask_generator_generate(img)
+＃用cV和imshow来展示原图和预测结果
+# cv2.imshow(“img
+, img)
+mask = masks[@].astype(np.uint8)
+* 255
+mask = cv2. cvtColor (mask, cv2.COLOR_GRAY2BGR)
+res
+= cv2.bitwise and(img, mask)
+＃ cv2.imshow(" res
+, res)
+# cv2.waitkey(e)
+# cv2.destroyA11Windows()
+plt.imshow(res)
+#保存预测结果
+out _path = os.path.join(out_path, out _name)
+cv2.imwrite(out_path, res)
+print('结果己保存到{}'.format (out _path))
