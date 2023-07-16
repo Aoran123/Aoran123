@@ -1,3 +1,5 @@
+python main.py --output_dir logs/DINO/R50_custom_finetune -c ./config/DINO/DINO_4scale_custom.py --coco_path ./coco_path --options dn_scalar=100 embed_init_tgt=TRUE dn_label_coef=1.0 dn_bbox_coef=1.0 use_ema=False dn_box_noise_scale=1.0 
+
 import cv2
 import numpy as np
 from matplotlib import pyplot as plt
